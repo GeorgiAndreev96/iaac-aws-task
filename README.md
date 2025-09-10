@@ -6,6 +6,6 @@ This repository contains the Infrastructure-as-Code (IaC) setup for a basic web 
 - **Web Servers:** EC2 instances
 - **Load Balancer:** Application Load Balancer (ALB)
 - **Database:** RDS (MySQL/PostgreSQL)
-- **CI/CD:** Jenkins for automation NEW
+- **CI/CD:** Jenkins for automation 
 
 ## Repository Structure
