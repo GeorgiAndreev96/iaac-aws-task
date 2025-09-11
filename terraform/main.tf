@@ -36,7 +36,7 @@ resource "aws_instance" "web2" {
 # RDS DATABASES
 ############################################################
 resource "aws_db_instance" "db_master" {
-  identifier             = "db-iaac-task1"
+  identifier             = "db-iaac-task11"
   engine                 = "mysql"
   instance_class         = "db.t3.micro"
   username               = var.rds_username
@@ -49,7 +49,7 @@ resource "aws_db_instance" "db_master" {
   backup_retention_period = 7         # 7 days of automated backups
 
   tags = {
-    Name = "db-iaac-task1"
+    Name = "db-iaac-task11"
   }
 }
 
