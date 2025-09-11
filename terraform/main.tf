@@ -85,7 +85,7 @@ resource "aws_db_instance" "db_replica" {
   skip_final_snapshot    = true
 
   tags = {
-    Name = "db-iaac-task2"
+    Name = "db-iaac-task-rep"
   }
 }
 
