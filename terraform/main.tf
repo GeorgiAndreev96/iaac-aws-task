@@ -45,12 +45,14 @@ resource "aws_db_instance" "db_master" {
   db_subnet_group_name   = var.db_subnet_group_name
   vpc_security_group_ids = var.vpc_security_group_ids
   multi_az               = false
-  skip_final_snapshot    = true
+  skip_final_snapshot    = false      # optional for safe deletion
+  backup_retention_period = 7         # 7 days of automated backups
 
   tags = {
     Name = "db-iaac-task1"
   }
 }
+
 
 resource "aws_db_instance" "db_replica" {
   identifier             = "db-iaac-task2"
