@@ -23,3 +23,8 @@ variable "db_subnet_group_name" {
   default     = "iaac-task-db-subnet" # replace if you have a custom DB subnet group
 }
 
+variable "vpc_id" {
+  description = "ID of the existing VPC"
+  type        = string
+  default     = "vpc-07d72007b99854392" # replace with your actual VPC ID
+}
