@@ -52,7 +52,7 @@ resource "aws_db_instance" "db_master" {
   }
 }
 
-resource "aws_db_instance" "slave" {
+resource "aws_db_instance" "db_replica" {
   identifier              = "db-iaac-task2"
   engine                  = "mysql"
   instance_class          = "db.t3.micro"
