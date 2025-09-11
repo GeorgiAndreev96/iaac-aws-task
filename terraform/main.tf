@@ -56,7 +56,7 @@ resource "aws_instance" "web2" {
 # RDS DATABASES
 ############################################################
 resource "aws_db_instance" "db_master" {
-  identifier             = "db-iaac-task11"
+  identifier             = "db-iaac-task"
   engine                 = "mysql"
   instance_class         = "db.t3.micro"
   username               = var.rds_username
@@ -69,13 +69,13 @@ resource "aws_db_instance" "db_master" {
   backup_retention_period = 7         # 7 days of automated backups
 
   tags = {
-    Name = "db-iaac-task11"
+    Name = "db-iaac-task"
   }
 }
 
 
 resource "aws_db_instance" "db_replica" {
-  identifier             = "db-iaac-task2"
+  identifier             = "db-iaac-task-rep"
   engine                 = "mysql"
   instance_class         = "db.t3.micro"
   replicate_source_db    = aws_db_instance.db_master.arn  # <- use ARN instead of ID
@@ -85,7 +85,7 @@ resource "aws_db_instance" "db_replica" {
   skip_final_snapshot    = true
 
   tags = {
-    Name = "db-iaac-task2"
+    Name = "db-iaac-task-rep"
   }
 }
 
