@@ -55,54 +55,40 @@ resource "aws_instance" "web2" {
 ############################################################
 # RDS DATABASES
 ############################################################
-resource "aws_db_parameter_group" "db_master_param_group" {
-  name        = "db-iaac-task-param-group"
-  family      = "mysql5.7" # Make sure this matches your MySQL version.
-  description = "Custom parameter group for the master database to enable replication"
-
-  parameter {
-    name  = "binlog_format"
-    value = "ROW"
-  }
-}
-
 resource "aws_db_instance" "db_master" {
-  identifier               = "db-iaac-task"
-  engine                   = "mysql"
-  instance_class           = "db.t3.micro"
-  username                 = var.rds_username
-  password                 = var.rds_password
-  allocated_storage        = 20
-  db_subnet_group_name     = var.db_subnet_group_name
-  vpc_security_group_ids   = var.vpc_security_group_ids
-  multi_az                 = false
-  skip_final_snapshot      = false
-  backup_retention_period  = 7
-  
-  # This line assigns the custom parameter group
-  db_parameter_group_name  = aws_db_parameter_group.db_master_param_group.name
+  identifier             = "db-iaac-task"
+  engine                 = "mysql"
+  instance_class         = "db.t3.micro"
+  username               = var.rds_username
+  password               = var.rds_password
+  allocated_storage      = 20
+  db_subnet_group_name   = var.db_subnet_group_name
+  vpc_security_group_ids = var.vpc_security_group_ids
+  multi_az               = false
+  skip_final_snapshot    = false      # optional for safe deletion
+  backup_retention_period = 7         # 7 days of automated backups
 
   tags = {
-    Name = "db-iaac-task"
+    Name = "db-iaac-task11"
   }
 }
+
 
 resource "aws_db_instance" "db_replica" {
   identifier             = "db-iaac-task-rep"
   engine                 = "mysql"
   instance_class         = "db.t3.micro"
-  replicate_source_db    = aws_db_instance.db_master.arn
+  replicate_source_db    = aws_db_instance.db_master.arn  # <- use ARN instead of ID
   db_subnet_group_name   = var.db_subnet_group_name
   vpc_security_group_ids = var.vpc_security_group_ids
   multi_az               = false
   skip_final_snapshot    = true
 
   tags = {
-    Name = "db-iaac-task-rep"
+    Name = "db-iaac-task2"
   }
-
-  depends_on = [aws_db_instance.db_master, aws_db_parameter_group.db_master_param_group]
 }
+
 
 ############################################################
 # NEW TARGET GROUP FOR ALB
