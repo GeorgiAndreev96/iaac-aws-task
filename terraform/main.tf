@@ -15,6 +15,8 @@ resource "aws_instance" "web1" {
   subnet_id              = var.subnet_ids[0]
   vpc_security_group_ids = var.vpc_security_group_ids
 
+  associate_public_ip_address = true 
+
   tags = {
     Name = "iaac-task-web1"
   }
@@ -26,6 +28,8 @@ resource "aws_instance" "web2" {
   key_name               = "terraform-key"
   subnet_id              = var.subnet_ids[1]
   vpc_security_group_ids = var.vpc_security_group_ids
+
+  associate_public_ip_address = true 
 
   tags = {
     Name = "iaac-task-web2"
