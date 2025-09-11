@@ -53,6 +53,18 @@ resource "aws_instance" "web2" {
 }
 
 ############################################################
+# RDS SUBNET GROUP
+############################################################
+resource "aws_db_subnet_group" "iaac_task_db_subnet" {
+  name       = var.db_subnet_group_name
+  subnet_ids = var.subnet_ids
+
+  tags = {
+    Name = var.db_subnet_group_name
+  }
+}
+
+############################################################
 # RDS DATABASES
 ############################################################
 resource "aws_db_instance" "db_master" {
