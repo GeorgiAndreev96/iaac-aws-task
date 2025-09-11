@@ -17,6 +17,14 @@ resource "aws_instance" "web1" {
 
   associate_public_ip_address = true 
 
+  user_data = <<-EOF
+              #!/bin/bash
+              apt update
+              apt install -y nginx
+              systemctl start nginx
+              systemctl enable nginx
+              EOF
+
   tags = {
     Name = "iaac-task-web1"
   }
@@ -28,6 +36,14 @@ resource "aws_instance" "web2" {
   key_name               = "terraform-key"
   subnet_id              = var.subnet_ids[1]
   vpc_security_group_ids = var.vpc_security_group_ids
+
+  user_data = <<-EOF
+              #!/bin/bash
+              apt update
+              apt install -y nginx
+              systemctl start nginx
+              systemctl enable nginx
+              EOF
 
   associate_public_ip_address = true 
 
