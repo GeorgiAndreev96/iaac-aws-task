@@ -78,7 +78,7 @@ resource "aws_db_instance" "db_replica" {
   identifier             = "db-iaac-task-rep"
   engine                 = "mysql"
   instance_class         = "db.t3.micro"
-  replicate_source_db    = aws_db_instance.db_master.arn  # <- use ARN instead of ID
+  replicate_source_db    = aws_db_instance.db_master.arn
   db_subnet_group_name   = var.db_subnet_group_name
   vpc_security_group_ids = var.vpc_security_group_ids
   multi_az               = false
@@ -87,7 +87,10 @@ resource "aws_db_instance" "db_replica" {
   tags = {
     Name = "db-iaac-task-rep"
   }
+
+  depends_on = [aws_db_instance.db_master]
 }
+
 
 
 ############################################################
