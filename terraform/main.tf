@@ -53,20 +53,20 @@ resource "aws_db_instance" "db_master" {
 }
 
 resource "aws_db_instance" "db_replica" {
-  identifier              = "db-iaac-task2"
-  engine                  = "mysql"
-  instance_class          = "db.t3.micro"
-  allocated_storage       = 20
-  db_subnet_group_name    = var.db_subnet_group_name
-  vpc_security_group_ids  = var.vpc_security_group_ids
-  multi_az                = false
-  replicate_source_db     = aws_db_instance.db_master.id
-  skip_final_snapshot     = true
+  identifier             = "db-iaac-task2"
+  engine                 = "mysql"
+  instance_class         = "db.t3.micro"
+  replicate_source_db    = aws_db_instance.db_master.arn  # <- use ARN instead of ID
+  db_subnet_group_name   = var.db_subnet_group_name
+  vpc_security_group_ids = var.vpc_security_group_ids
+  multi_az               = false
+  skip_final_snapshot    = true
 
   tags = {
     Name = "db-iaac-task2"
   }
 }
+
 
 ############################################################
 # NEW TARGET GROUP FOR ALB
