@@ -19,10 +19,72 @@ resource "aws_instance" "web1" {
 
   user_data = <<-EOF
               #!/bin/bash
+              # Update packages
               apt update
-              apt install -y nginx
-              systemctl start nginx
-              systemctl enable nginx
+              apt install -y nginx python3.11 python3.11-venv python3-pip mysql-client git
+
+              # Create app directory
+              mkdir -p /opt/sslchecker
+              cd /opt/sslchecker
+
+              # Clone your GitHub repository
+              git clone https://github.com/GeorgiAndreev96/ssl-checker.git .
+
+              # Setup Python virtual environment
+              python3.11 -m venv venv
+              source venv/bin/activate
+              pip install --upgrade pip
+              pip install -r requirements.txt
+
+              # Create systemd service for FastAPI
+              cat > /etc/systemd/system/sslchecker.service << EOL
+              [Unit]
+              Description=SSL Checker FastAPI
+              After=network.target
+
+              [Service]
+              User=ubuntu
+              WorkingDirectory=/opt/sslchecker/backend
+              Environment="PATH=/opt/sslchecker/venv/bin"
+              ExecStart=/opt/sslchecker/venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
+
+              [Install]
+              WantedBy=multi-user.target
+              EOL
+
+              # Start and enable FastAPI service
+              systemctl daemon-reload
+              systemctl start sslchecker
+              systemctl enable sslchecker
+
+              # Deploy frontend files to nginx root
+              mkdir -p /var/www/html/sslchecker
+              cp -r /opt/sslchecker/frontend/* /var/www/html/sslchecker/
+
+              # Configure Nginx reverse proxy
+              cat > /etc/nginx/sites-available/sslchecker << EOL
+              server {
+                  listen 80;
+
+                  root /var/www/html/sslchecker;
+                  index index.html;
+
+                  location /api/ {
+                      proxy_pass http://127.0.0.1:8000/api/;
+                      proxy_set_header Host \$host;
+                      proxy_set_header X-Real-IP \$remote_addr;
+                  }
+
+                  location / {
+                      try_files \$uri /index.html;
+                  }
+              }
+              EOL
+
+              ln -s /etc/nginx/sites-available/sslchecker /etc/nginx/sites-enabled/
+              rm /etc/nginx/sites-enabled/default
+              systemctl restart nginx
+
               EOF
 
   tags = {
