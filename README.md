@@ -16,8 +16,8 @@ This project provisions the infrastructure for the **SSL Checker** application u
 
 It creates:  
 - **2 EC2 instances** (`web1` running backend + frontend, `web2` for redundancy / Nginx)  
-- **RDS MySQL instance**  
-- **DB Subnet Group and networking**  
+- **2 RDS MySQL instance**  
+- **DB Subnet Group and VPC**  
 
 ---
 
@@ -77,4 +77,5 @@ terraform/
 
 ```bash
 terraform output
+
 
