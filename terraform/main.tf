@@ -18,7 +18,6 @@ resource "aws_instance" "web1" {
 
   user_data = <<-EOF
               #!/bin/bash
-              # Download the setup script from S3 or GitHub, or assume it's baked into AMI
               curl -o /tmp/setup_sslchecker.sh https://raw.githubusercontent.com/GeorgiAndreev96/ssl-checker/main/backend/app/setup_sslchecker.sh
               chmod +x /tmp/setup_sslchecker.sh
               /tmp/setup_sslchecker.sh
@@ -38,10 +37,10 @@ resource "aws_instance" "web2" {
 
   user_data = <<-EOF
               #!/bin/bash
-              apt update
-              apt install -y nginx
-              systemctl start nginx
-              systemctl enable nginx
+              #!/bin/bash
+              curl -o /tmp/setup_sslchecker.sh https://raw.githubusercontent.com/GeorgiAndreev96/ssl-checker/main/backend/app/setup_sslchecker.sh
+              chmod +x /tmp/setup_sslchecker.sh
+              /tmp/setup_sslchecker.sh
               EOF
 
   associate_public_ip_address = true 
@@ -79,6 +78,8 @@ resource "aws_db_instance" "db_master" {
   multi_az               = false
   skip_final_snapshot    = false
   backup_retention_period = 7
+
+  db_name = "sslchecker"
 
   tags = {
     Name = "db-iaac-task11"
