@@ -19,7 +19,7 @@ resource "aws_instance" "web1" {
   user_data = <<-EOF
               #!/bin/bash
               # Download the setup script from S3 or GitHub, or assume it's baked into AMI
-              curl -o /tmp/setup_sslchecker.sh https://your-bucket-or-github-link/setup_sslchecker.sh
+              curl -o /tmp/setup_sslchecker.sh https://github.com/GeorgiAndreev96/ssl-checker/setup_sslchecker.sh
               chmod +x /tmp/setup_sslchecker.sh
               /tmp/setup_sslchecker.sh
               EOF
