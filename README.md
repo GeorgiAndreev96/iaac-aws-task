@@ -72,11 +72,7 @@ terraform/
 - Create 2 RDS MySQL instances
 - Connect SSL Checker to DB
 
-## ✅ Check Outputs
 
-```bash
-terraform output
-```
 
 ## 🔧 Usage & Troubleshooting
 
@@ -115,6 +111,7 @@ If the service still fails, try running the app manually:
 If the database connection fails, check the configuration file:
 
     /opt/sslchecker/backend/app/db.py
+
 
 
 
