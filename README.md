@@ -29,8 +29,6 @@ terraform/
 │── main.tf           # Defines EC2, RDS, networking
 │── variables.tf      # Input variables (subnet IDs, SGs, DB settings)
 │── outputs.tf        # Outputs (public IPs, RDS endpoint)
-│── provider.tf       # AWS provider configuration
-│── terraform.tfvars  # Your specific values (gitignored)
 ```
 
 
@@ -80,23 +78,43 @@ terraform/
 terraform output
 ```
 
-Open the loadbalancer hostname to access the SSL Checker APP.
-Login to the server to test the service:
+## 🔧 Usage & Troubleshooting
 
-systemctl status sslchecker
+### Access the Application
+Open the **Load Balancer hostname** in your browser to access the **SSL Checker App**.
 
-If it failed, try to restart it:
+---
 
-systemctl restart sslchecker
+### Check the Service
+SSH into the server and verify the service status:
 
-check status again and if its stil failed, check the exact error manaully:
+    systemctl status sslchecker
 
-cd backend
-python3.11 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-uvicorn app.main:app --host 0.0.0.0 --port 8000
+If the service is **not running**, restart it:
 
-If DB fails, check the config file in:
-/opt/sslchecker/backend/app/db.py
+    systemctl restart sslchecker
+
+Check the status again:
+
+    systemctl status sslchecker
+
+---
+
+### Manual Debugging
+If the service still fails, try running the app manually:
+
+    cd backend
+    python3.11 -m venv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+    uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+---
+
+### Database Issues
+If the database connection fails, check the configuration file:
+
+    /opt/sslchecker/backend/app/db.py
+
+
 
