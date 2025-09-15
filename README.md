@@ -6,7 +6,6 @@ This repository contains the **Infrastructure-as-Code (IaC)** setup for a basic 
 - **Web Servers:** EC2 instances  
 - **Load Balancer:** Application Load Balancer (ALB)  
 - **Database:** RDS (MySQL/PostgreSQL)  
-- **CI/CD:** Jenkins for automation  
 
 ---
 
@@ -38,8 +37,8 @@ terraform/
 - Terraform installed (v1.5+)
 - AWS CLI configured with credentials (`aws configure`)
 - SSH key pair uploaded in AWS (e.g., `terraform-key`)
-- Existing VPC, subnets, and security groups
 
+  
 ## 🛠️ Deployment Steps
 
 1. Navigate into the Terraform directory:
@@ -68,14 +67,15 @@ terraform/
 
 **This will:**
 
-- Launch EC2 instances  
-- Install backend/frontend via `setup_sslchecker.sh` (on web1)  
-- Configure Nginx reverse proxy  
-- Create the RDS MySQL instance  
+- Launch 2 EC2 instances with loadbalancer above them
+- Install backend/frontend via `setup_sslchecker.sh` on both servers  
+- Create 2 RDS MySQL instances
+- Connect SSL Checker to DB
 
 ## ✅ Check Outputs
 
 ```bash
 terraform output
+
 
 
