@@ -76,6 +76,7 @@ terraform/
 
 ```bash
 terraform output
+```
 
 
 
