@@ -72,7 +72,6 @@ resource "aws_db_instance" "db_master" {
   username               = var.rds_username
   password               = var.rds_password
   allocated_storage      = 20
-  # Change this line to reference the subnet group resource's name
   db_subnet_group_name   = aws_db_subnet_group.iaac_task_db_subnet.name
   vpc_security_group_ids = var.vpc_security_group_ids
   multi_az               = false
@@ -91,7 +90,6 @@ resource "aws_db_instance" "db_replica" {
   engine                 = "mysql"
   instance_class         = "db.t3.micro"
   replicate_source_db    = aws_db_instance.db_master.arn
-  # Change this line to reference the subnet group resource's name
   db_subnet_group_name   = aws_db_subnet_group.iaac_task_db_subnet.name
   vpc_security_group_ids = var.vpc_security_group_ids
   multi_az               = false
