@@ -38,7 +38,40 @@ terraform/
 - AWS CLI configured with credentials (`aws configure`)
 - SSH key pair uploaded in AWS (e.g., `terraform-key`)
 
-  
+## 🏗️ Infrastructure Overview
+
+The project provisions the following infrastructure using IaC:
+
+```
+
+               ┌───────────────────────┐
+               │    Load Balancer      │
+               │  (Public Endpoint)    │
+               └──────────┬────────────┘
+                          │
+          ┌───────────────┴───────────────┐
+          │                               │
+  ┌─────────────┐                 ┌─────────────┐
+  │   EC2 #1    │                 │   EC2 #2    │
+  │ App Server  │                 │ App Server  │
+  └──────┬──────┘                 └──────┬──────┘
+         │                               │
+         └──────────────┬────────────────┘
+                        │
+               ┌────────┴────────┐
+               │    Database      │
+               │     Master       │
+               └────────┬────────┘
+                        │
+               ┌────────┴────────┐
+               │   Replica DB    │
+               └─────────────────┘
+
+```
+
+
+
+
 ## 🛠️ Deployment Steps
 
 1. Navigate into the Terraform directory:
@@ -118,6 +151,7 @@ If the database connection fails, check the configuration file:
 - **SSL Checker setup log file**: `/tmp/setup.log`  
 - **SSL Checker main folder**: `/opt/sslchecker/`  
 - **SSL Checker service config file**: `/etc/systemd/system/sslchecker.service`
+
 
 
 
