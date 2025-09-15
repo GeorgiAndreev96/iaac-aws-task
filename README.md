@@ -59,8 +59,8 @@ The project provisions the following infrastructure using IaC:
          └──────────────┬────────────────┘
                         │
                ┌────────┴────────┐
-               │    Database      │
-               │     Master       │
+               │    Database     │
+               │     Master      │
                └────────┬────────┘
                         │
                ┌────────┴────────┐
@@ -151,6 +151,7 @@ If the database connection fails, check the configuration file:
 - **SSL Checker setup log file**: `/tmp/setup.log`  
 - **SSL Checker main folder**: `/opt/sslchecker/`  
 - **SSL Checker service config file**: `/etc/systemd/system/sslchecker.service`
+
 
 
 
