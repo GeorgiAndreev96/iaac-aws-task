@@ -6,7 +6,7 @@ This repository contains the **Infrastructure-as-Code (IaC)** setup for a basic 
 - **Web Servers:** EC2 instances  
 - **Load Balancer:** Application Load Balancer (ALB)  
 - **Database:** RDS (MySQL) 
-- **SSL-Checker repo https://github.com/GeorgiAndreev96/ssl-checker
+- **SSL-Checker** repo https://github.com/GeorgiAndreev96/ssl-checker
 
 
 ---
@@ -151,6 +151,7 @@ If the database connection fails, check the configuration file:
 - **SSL Checker setup log file**: `/tmp/setup.log`  
 - **SSL Checker main folder**: `/opt/sslchecker/`  
 - **SSL Checker service config file**: `/etc/systemd/system/sslchecker.service`
+
 
 
 
