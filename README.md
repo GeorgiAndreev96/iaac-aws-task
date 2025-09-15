@@ -5,7 +5,9 @@ This repository contains the **Infrastructure-as-Code (IaC)** setup for a basic 
 ## 🔎 Overview
 - **Web Servers:** EC2 instances  
 - **Load Balancer:** Application Load Balancer (ALB)  
-- **Database:** RDS (MySQL/PostgreSQL)  
+- **Database:** RDS (MySQL) 
+- **SSL-Checker repo https://github.com/GeorgiAndreev96/ssl-checker
+
 
 ---
 
@@ -78,6 +80,23 @@ terraform/
 terraform output
 ```
 
+Open the loadbalancer hostname to access the SSL Checker APP.
+Login to the server to test the service:
 
+systemctl status sslchecker
 
+If it failed, try to restart it:
+
+systemctl restart sslchecker
+
+check status again and if its stil failed, check the exact error manaully:
+
+cd backend
+python3.11 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+If DB fails, check the config file in:
+/opt/sslchecker/backend/app/db.py
 
