@@ -1,6 +1,6 @@
 # AWS Infrastructure Automation Challenge
 
-This repository contains the **Infrastructure-as-Code (IaC)** setup for a basic web application stack on AWS.
+This repository contains the **Infrastructure-as-Code (IaC)** setup for a basic web application stack on AWS. And install SSL Checker via setup_sslchecker.sh file
 
 ## 🔎 Overview
 - **Web Servers:** EC2 instances  
@@ -76,6 +76,7 @@ terraform/
 
 ```bash
 terraform output
+
 
 
 
