@@ -113,5 +113,11 @@ If the database connection fails, check the configuration file:
     /opt/sslchecker/backend/app/db.py
 
 
+## 📂 Important Paths
+
+- **SSL Checker setup log file**: `/tmp/setup.log`  
+- **SSL Checker main folder**: `/opt/sslchecker/`  
+- **SSL Checker service config file**: `/etc/systemd/system/sslchecker.service`
+
 
 
